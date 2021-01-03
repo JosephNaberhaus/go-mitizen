@@ -1,0 +1,70 @@
+{
+  "prompts": [
+    {
+      "name": "type",
+      "type": "select",
+      "description": "Select the type of change that you're committing",
+      "options": [
+        {
+          "name": "feat",
+          "description": "A new feature"
+        },
+        {
+          "name": "fix",
+          "description": "A bug fix"
+        },
+        {
+          "name": "improvement",
+          "description": "An improvement to a current feature"
+        },
+        {
+          "name": "docs",
+          "description": "Documentation only changes"
+        },
+        {
+          "name": "style",
+          "description": "Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)"
+        },
+        {
+          "name": "refactor",
+          "description": "A code change that neither fixes a bug nor adds a feature"
+        },
+        {
+          "name": "perf",
+          "description": "A code change that improves performance"
+        },
+        {
+          "name": "test",
+          "description": "Adding missing tests or correcting existing tests"
+        },
+        {
+          "name": "build",
+          "description": "Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)"
+        },
+        {
+          "name": "ci",
+          "description": "Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)"
+        },
+        {
+          "name": "chore",
+          "description": "Other changes that don't modify src or test files"
+        },
+        {
+          "name": "revert",
+          "description": "Reverts a previous commit"
+        }
+      ]
+    },
+    {
+      "name": "scope",
+      "type": "single-line",
+      "description": "What is the scope of this change (e.g. component or file name): (press enter to skip)"
+    },
+    {
+      "type": "single-line",
+      "description": "Write a short, imperative tense description of the change (max 92 chars):",
+      "maxCharacters": "#len(",
+
+    }
+  ]
+}

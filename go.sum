@@ -1,0 +1,6 @@
+github.com/eiannone/keyboard v0.0.0-20200508000154-caf4b762e807 h1:jdjd5e68T4R/j4PWxfZqcKY8KtT9oo8IPNVuV4bSXDQ=
+github.com/eiannone/keyboard v0.0.0-20200508000154-caf4b762e807/go.mod h1:Xoiu5VdKMvbRgHuY7+z64lhu/7lvax/22nzASF6GrO8=
+github.com/snugfox/ansi-escapes v0.2.1-0.20201222033053-82a0109803f0 h1:eLJS0UFklqC3Bla1a6cECtVHHKq10kg4ohzh5ckeVd8=
+github.com/snugfox/ansi-escapes v0.2.1-0.20201222033053-82a0109803f0/go.mod h1:7GY2wPrDOaZyZ/OlSWalu7T+RKdkSrPfQHDr3xl8yGk=
+golang.org/x/sys v0.0.0-20190124100055-b90733256f2e h1:3GIlrlVLfkoipSReOMNAgApI0ajnalyLa/EZHHca/XI=
+golang.org/x/sys v0.0.0-20190124100055-b90733256f2e/go.mod h1:STP8DvDyc/dI5b8T5hshtkjS+E42TnysNCUPdjciGhY=
