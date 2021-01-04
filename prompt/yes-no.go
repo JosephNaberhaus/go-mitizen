@@ -3,23 +3,23 @@ package prompt
 
 
 type YesNo struct {
+	base
+
 	Description string
 
-	output *output
 	editor *editor
-
-	showing bool
-	finished bool
 }
 
-func (y *YesNo) Show() {
-	y.output = newOutput()
+func (y *YesNo) Show() error {
+	y.base.Show()
+
 	y.editor = newEditor(y.output.numCols)
-
 	y.render()
+
+	return loopUntilFinished(y)
 }
 
-func (y *YesNo) HandleInput(input Key) {
+func (y *YesNo) handleInput(input Key) {
 	if y.finished {
 		return
 	}
@@ -45,7 +45,7 @@ func (y *YesNo) render() {
 	offsetY := y.output.cursorY
 
 	if y.finished {
-		if y.ResponseYes() {
+		if y.Response() {
 			y.output.writeColorLn("Yes", ColorCyan)
 		} else {
 			y.output.writeColorLn("No", ColorCyan)
@@ -59,20 +59,13 @@ func (y *YesNo) render() {
 	y.output.flush()
 }
 
-func (y *YesNo) Showing() bool {
-	return y.showing
-}
-
 func (y *YesNo) Finish() {
-	y.finished = true
+	y.base.Finish()
+
 	y.render()
 	y.output.commit()
 }
 
-func (y *YesNo) Finished() bool {
-	return y.finished
-}
-
-func (y *YesNo) ResponseYes() bool {
+func (y *YesNo) Response() bool {
 	return y.editor.curLineLength() > 0 && y.editor.curLine()[0] == 'y'
 }

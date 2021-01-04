@@ -5,28 +5,23 @@ import (
 )
 
 type Multiline struct {
+	base
+
 	Description string
 
 	editor *editor
-	output *output
-
-	showing bool
-	finished bool
 }
 
-func (m *Multiline) Show() {
-	if m.showing {
-		panic("cannot call show multiple times")
-	}
+func (m *Multiline) Show() error {
+	m.base.Show()
 
-	m.output = newOutput()
 	m.editor = newEditor(m.output.numCols)
-	m.showing = true
-
 	m.render()
+
+	return loopUntilFinished(m)
 }
 
-func (m *Multiline) HandleInput(input Key) {
+func (m *Multiline) handleInput(input Key) {
 	if !m.showing || m.finished {
 		return
 	}
@@ -68,11 +63,16 @@ func (m *Multiline) render() {
 	offsetX := m.output.cursorX
 	offsetY := m.output.cursorY
 
+	textColor := ColorWhite
+	if m.finished {
+		textColor = ColorCyan
+	}
+
 	for i, line := range m.editor.lines {
 		if i + 1 == len(m.editor.lines) {
-			m.output.write(line)
+			m.output.writeColor(line, textColor)
 		} else {
-			m.output.writeLn(line)
+			m.output.writeColorLn(line, textColor)
 		}
 	}
 
@@ -80,16 +80,13 @@ func (m *Multiline) render() {
 	m.output.flush()
 }
 
-func (m *Multiline) Showing() bool {
-	return m.showing
-}
-
 func (m *Multiline) Finish() {
-	m.finished = true
+	m.base.Finish()
+
 	m.render()
 	m.output.commit()
 }
 
-func (m *Multiline) Finished() bool {
-	return m.finished
+func (m *Multiline) Response() []string {
+	return m.editor.lines
 }

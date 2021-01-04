@@ -15,33 +15,29 @@ type SelectionOption struct {
 }
 
 type Select struct {
+	base
+
 	Description string
 	Options []*SelectionOption
 
 	optionLines []string
 	optionIndexToLine []int
 
-	output *output
-
 	cursor int
-
-	showing bool
-	finished bool
 }
 
-func (s *Select) Show() {
-	s.output = newOutput()
-	s.showing = true
-
-	s.cursor = 0
+func (s *Select) Show() error {
+	s.base.Show()
 
 	s.computeOptionLines()
 
 	s.output.hideCursor()
 	s.render()
+
+	return loopUntilFinished(s)
 }
 
-func (s *Select) HandleInput(input Key) {
+func (s *Select) handleInput(input Key) {
 	if input == ControlUp {
 		s.cursor--
 		if s.cursor < 0 {
@@ -68,8 +64,10 @@ func (s *Select) render() {
 	s.output.write(s.Description)
 	s.output.write(": ")
 	if s.finished {
-		s.output.writeColor(fmt.Sprintf(" %s: %s", s.Selected().Name, s.Selected().Description), ColorCyan)
+		s.output.writeColor(fmt.Sprintf(" %s: %s", s.selected().Name, s.selected().Description), ColorCyan)
 		return
+	} else {
+		s.output.writeColor("(Use arrow keys)", ColorGreen)
 	}
 	s.output.nextLine()
 
@@ -100,26 +98,19 @@ func (s *Select) render() {
 	s.output.flush()
 }
 
-func (s *Select) Showing() bool {
-	return s.showing
-}
-
 func (s *Select) Finish() {
-	s.finished = true
+	s.base.Finish()
+
 	s.output.showCursor()
 	s.render()
 	s.output.commit()
-}
-
-func (s *Select) Finished() bool {
-	return s.finished
 }
 
 func (s *Select) wrapLine(line int) int {
 	return (line % len(s.optionLines) + len(s.optionLines)) % len(s.optionLines)
 }
 
-func (s *Select) Selected() *SelectionOption {
+func (s *Select) selected() *SelectionOption {
 	return s.Options[s.cursor]
 }
 
@@ -162,4 +153,8 @@ func (s *Select) longestName() int {
 	}
 
 	return longestName
+}
+
+func (s *Select) Response() *SelectionOption {
+	return s.selected()
 }

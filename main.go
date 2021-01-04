@@ -1,8 +1,7 @@
 package main
 
 import (
-	"github.com/JosephNaberhaus/go-mitizen/prompt"
-	"github.com/eiannone/keyboard"
+	"github.com/JosephNaberhaus/go-mitizen/commit"
 	"log"
 	"os"
 )
@@ -16,22 +15,5 @@ func main()  {
 
 	log.SetOutput(f)
 
-	test := prompt.YesNo{Description: "testing"}
-
-	test.Show()
-
-	keyboard.Open()
-	defer keyboard.Close()
-
-	for true {
-		rune, key, _ := keyboard.GetKey()
-
-		if key == keyboard.KeyCtrlC {
-			keyboard.Close()
-			test.Finish()
-			os.Exit(1)
-		}
-
-		test.HandleInput(prompt.ToKey(rune, key))
-	}
+	commit.Commit()
 }

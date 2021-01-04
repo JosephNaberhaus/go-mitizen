@@ -1,8 +1,8 @@
 package prompt
 
 type Prompt interface {
-	Show()
-	HandleInput(input Key)
+	Show() error
+	handleInput(input Key)
 	Showing() bool
 	Finish()
 	Finished() bool

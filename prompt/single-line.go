@@ -6,6 +6,8 @@ import (
 )
 
 type SingleLine struct {
+	base
+
 	Name string
 	Description string
 
@@ -14,26 +16,19 @@ type SingleLine struct {
 
 	invalidMessage string // An invalid input message to display below the input text
 
-	output *output
 	editor *editor
-
-	showing bool
-	finished bool
 }
 
-func (s *SingleLine) Show() {
-	if s.showing {
-		panic("cannot call show multiple times")
-	}
+func (s *SingleLine) Show() error {
+	s.base.Show()
 
-	s.output = newOutput()
 	s.editor = newEditor(s.output.numCols)
-	s.showing = true
-
 	s.render()
+
+	return loopUntilFinished(s)
 }
 
-func (s *SingleLine) HandleInput(input Key) {
+func (s *SingleLine) handleInput(input Key) {
 	if !s.showing || s.finished {
 		return
 	}
@@ -62,6 +57,9 @@ func (s *SingleLine) render() {
 
 	s.output.writeColor("? ", ColorGreen)
 	s.output.write(s.Description)
+	if s.MaxCharacters > 0 {
+		s.output.write(fmt.Sprintf(" (max %d characters)", s.MaxCharacters))
+	}
 	s.output.write(": ")
 
 	textColor := ColorWhite
@@ -92,7 +90,6 @@ func (s *SingleLine) render() {
 	s.output.writeColorLn(s.editor.curLine(), textColor)
 
 	if len(s.invalidMessage) != 0 {
-		s.output.nextLine()
 		s.output.writeColor(">> ", ColorRed)
 		s.output.write(s.invalidMessage)
 	}
@@ -101,17 +98,13 @@ func (s *SingleLine) render() {
 	s.output.flush()
 }
 
-func (s *SingleLine) Showing() bool {
-	return s.showing
-}
-
 func (s *SingleLine) Finish() {
-	s.finished = true
+	s.base.Finish()
+
 	s.render()
 	s.output.commit()
 }
 
-func (s *SingleLine) Finished() bool {
-	return s.finished
+func (s *SingleLine) Response() string {
+	return s.editor.curLine()
 }
-

@@ -208,6 +208,7 @@ func (e *editor) handleInput(input Key) {
 		case ControlDown: e.down()
 		case ControlEnter: e.newline()
 		case ControlBackspace: e.backspace()
+		case ControlSpace: e.write(' ')
 		}
 	}
 }
