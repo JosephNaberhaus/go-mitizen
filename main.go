@@ -48,6 +48,7 @@ func main()  {
 		}
 
 		println("Installed subcommand. Run with \"git cz\"")
+		return
 	}
 
 	err := commit.Commit()
