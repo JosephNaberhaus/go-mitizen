@@ -1,6 +1,8 @@
 # Go-Mitizen
 A Commitizen-like Git commit utility for written in Go. Used for standardizing commit messages.
 
+![The commit form](meta/commit.gif)
+
 ## Compared to [cz-cli](https://github.com/commitizen/cz-cli)
 - 👍 Starts significantly faster
 - 👍 Doesn't require NPM
