@@ -4,6 +4,7 @@ A Commitizen-like Git commit utility for written in Go. Used for standardizing c
 ## Compared to [cz-cli](https://github.com/commitizen/cz-cli)
 - 👍 Starts significantly faster
 - 👍 Doesn't require on NPM
+- 👍 Allows multiline bodies
 - 👍 **TODO** Configurable within a repository without NPM or JavaScript
 - 👎 Not as configurable
 - 👎 Isn't compatible with the full commitizen toolset
@@ -21,6 +22,7 @@ git cz [--install] [--log]
 ```
 #### Flags
 `--install`: Install the application to be runnable via `git cz`.
+
 `--log`: Write log messages to the *logs.txt* file in the working directory for debugging.
 
 ## Configuration
