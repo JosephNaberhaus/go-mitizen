@@ -13,6 +13,7 @@ type SingleLine struct {
 
 	MaxCharacters int
 	Required bool
+	ForceLowercase bool
 
 	invalidMessage string // An invalid input message to display below the input text
 
@@ -22,7 +23,12 @@ type SingleLine struct {
 func (s *SingleLine) Show() error {
 	s.base.Show()
 
-	s.editor = newEditor(s.output.numCols)
+	s.editor = &editor{
+		NumCols:        s.output.numCols,
+		ForceLowercase: s.ForceLowercase,
+	}
+	s.editor.Init()
+
 	s.render()
 
 	return loopUntilFinished(s)

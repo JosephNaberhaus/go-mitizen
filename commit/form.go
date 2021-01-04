@@ -32,6 +32,7 @@ func showForm(config *Config) (commit *info, err error) {
 		Description:   "What is the scope of this change (e.g. component or file name)",
 		MaxCharacters: config.MaxHeaderLength - len(commit.CommitType) - 5,
 		Required:      false,
+		ForceLowercase: config.ForceScopeLowerCase,
 	}
 	err = scopePrompt.Show()
 	if err != nil {
@@ -52,6 +53,7 @@ func showForm(config *Config) (commit *info, err error) {
 		Description:   "Write a short, imperative tense description of the change",
 		MaxCharacters: maxSubjectLength,
 		Required:      true,
+		ForceLowercase: config.ForceSubjectLowerCase,
 	}
 	err = subjectPrompt.Show()
 	if err != nil {

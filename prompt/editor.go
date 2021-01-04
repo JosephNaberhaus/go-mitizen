@@ -8,24 +8,19 @@ import (
 
 // Implements a standard editor.
 type editor struct {
+	ForceLowercase bool
+	NumCols        int
+
 	lines []string
 
-	numCols int
 	cursorX int
 	cursorY int
 
 	preferredX int
 }
 
-func newEditor(numCols int) *editor {
-	e := new(editor)
-
+func (e *editor) Init() {
 	e.lines = []string{""}
-
-	e.numCols = numCols
-	e.cursorX = 0
-	e.cursorY = 0
-	return e
 }
 
 func (e *editor) left() {
@@ -59,18 +54,18 @@ func (e *editor) right() {
 }
 
 func (e *editor) up() {
-	if e.cursorX >= e.numCols {
-		e.cursorX -= e.numCols
+	if e.cursorX >= e.NumCols {
+		e.cursorX -= e.NumCols
 	} else if e.cursorY != 0 {
 		e.cursorY--
 
-		e.cursorX = e.numCols * (e.curLineLength() / e.numCols) + util.Min(e.curLineLength(), e.preferredX)
+		e.cursorX = e.NumCols* (e.curLineLength() / e.NumCols) + util.Min(e.curLineLength(), e.preferredX)
 	}
 }
 
 func (e *editor) down() {
-	if e.curLineLength() - e.cursorX >= e.numCols {
-		e.cursorX += e.numCols
+	if e.curLineLength() - e.cursorX >= e.NumCols {
+		e.cursorX += e.NumCols
 	} else if !e.isLastLine(e.cursorY) {
 		e.cursorY++
 		e.cursorX = util.Min(e.curLineLength(), e.preferredX)
@@ -111,6 +106,10 @@ func (e *editor) backspace() {
 }
 
 func (e *editor) write(input rune) {
+	if e.ForceLowercase {
+		input = unicode.ToLower(input)
+	}
+
 	if e.cursorX == e.curLineLength() {
 		e.lines[e.cursorY] = e.lines[e.cursorY] + string(input)
 	} else {
@@ -177,18 +176,18 @@ func (e *editor) lineFromLast(n int) string {
 
 // Compute what the cursor position will be if all lines are soft wrapped to fit within a certain number of columns
 func (e *editor) getRealCursorPosition(offsetX, offsetY int) (cursorX int, cursorY int) {
-	realX := (e.cursorX + offsetX) % e.numCols
+	realX := (e.cursorX + offsetX) % e.NumCols
 	realY := offsetY
 
 	for y := 0; y < e.cursorY; y++ {
-		realY += (e.lineLength(y) / e.numCols) + 1
+		realY += (e.lineLength(y) / e.NumCols) + 1
 	}
 
-	if ((offsetX + e.lineLength(0)) / e.numCols) > (e.lineLength(0) / e.numCols) {
+	if ((offsetX + e.lineLength(0)) / e.NumCols) > (e.lineLength(0) / e.NumCols) {
 		realY++
 	}
 
-	realY += e.cursorX / e.numCols
+	realY += e.cursorX / e.NumCols
 
 	log.Printf("Computed real cursor postion of %d %d from virtual position of %d %d with offset %d %d", realX, realY, e.cursorX, e.cursorY, offsetX, offsetY)
 	return realX, realY

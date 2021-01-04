@@ -15,5 +15,8 @@ func main()  {
 
 	log.SetOutput(f)
 
-	commit.Commit()
+	err = commit.Commit()
+	if err != nil {
+		log.Fatal(err)
+	}
 }

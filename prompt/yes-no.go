@@ -13,7 +13,8 @@ type YesNo struct {
 func (y *YesNo) Show() error {
 	y.base.Show()
 
-	y.editor = newEditor(y.output.numCols)
+	y.editor = &editor{NumCols: y.output.numCols}
+	y.editor.Init()
 	y.render()
 
 	return loopUntilFinished(y)

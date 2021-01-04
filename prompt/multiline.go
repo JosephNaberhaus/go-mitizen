@@ -15,7 +15,9 @@ type Multiline struct {
 func (m *Multiline) Show() error {
 	m.base.Show()
 
-	m.editor = newEditor(m.output.numCols)
+	m.editor = &editor{NumCols: m.output.numCols}
+	m.editor.Init()
+
 	m.render()
 
 	return loopUntilFinished(m)
@@ -88,5 +90,9 @@ func (m *Multiline) Finish() {
 }
 
 func (m *Multiline) Response() []string {
+	if m.editor.empty() {
+		return nil
+	}
+
 	return m.editor.lines
 }
