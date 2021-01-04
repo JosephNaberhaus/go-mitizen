@@ -1,4 +1,5 @@
 .idea
+*.iml
 
 go-mitizen
 go-mitizen.exe
