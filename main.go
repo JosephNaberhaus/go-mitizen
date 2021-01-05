@@ -12,7 +12,7 @@ import (
 )
 
 var installFlag = flag.Bool("install", false, "install this executable as a git subcommand runnable with \"git cz\"")
-var logFlag = flag.Bool("log", false, "write program logs to \"logs.txt\" in the working directory. Logs are discarded by default")
+var logFlag = flag.Bool("log", false, "write program logs to \"logs.txt\" in the working directory")
 
 func Usage() {
 	fmt.Fprintf(flag.CommandLine.Output(), "\nUsage: %s [-log] [-install]\n", os.Args[0])
@@ -20,6 +20,9 @@ func Usage() {
 }
 
 func main()  {
+	flag.Usage = Usage
+	flag.Parse()
+
 	if *logFlag {
 		f, err := os.OpenFile("logs.txt", os.O_RDWR | os.O_CREATE | os.O_APPEND, 0666)
 		if err != nil {
@@ -31,9 +34,6 @@ func main()  {
 	} else {
 		log.SetOutput(ioutil.Discard)
 	}
-
-	flag.Usage = Usage
-	flag.Parse()
 
 	if *installFlag {
 		err := git.InstallAsSubcommand("cz")

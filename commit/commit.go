@@ -5,9 +5,7 @@ import (
 )
 
 func Commit() error {
-	config := loadDefaultConfig()
-
-	commit, err := showForm(config)
+	commit, err := showForm()
 	if err != nil {
 		return err
 	}

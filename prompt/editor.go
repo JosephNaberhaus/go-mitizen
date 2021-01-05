@@ -94,9 +94,6 @@ func (e *editor) backspace() {
 		if e.cursorY != 0 {
 			deletedLine := e.removeLine(e.cursorY)
 
-			e.cursorY--
-			e.cursorX = e.curLineLength()
-
 			e.lines[e.cursorY] = e.curLine() + deletedLine
 		}
 	} else {
@@ -126,12 +123,14 @@ func (e *editor) write(input rune) {
 }
 
 func (e *editor) removeLine(y int) string {
-	if e.isLastLine(y) && e.cursorY == y {
-		e.up()
-	}
-
 	removedLine := e.lines[y]
 	e.lines = append(e.lines[:y], e.lines[y+1:]...)
+
+	if y < e.cursorY || e.cursorY == e.numLines() {
+		e.cursorY--
+		e.cursorX = e.curLineLength()
+		log.Printf("shifted cursor to %d %d", e.cursorX, e.cursorY)
+	}
 
 	return removedLine
 }

@@ -8,6 +8,7 @@ type Multiline struct {
 	base
 
 	Description string
+	AllowBlankLines bool // Whether to remove all blank lines from the input when submitted
 
 	editor *editor
 }
@@ -34,9 +35,19 @@ func (m *Multiline) handleInput(input Key) {
 			return
 		}
 
-		if m.editor.numLines() >= 2 && m.editor.lineFromLast(0) == "" && m.editor.lineFromLast(1) == "" {
-			m.editor.removeLine(m.editor.numLines() - 1)
-			m.editor.removeLine(m.editor.numLines() - 1)
+		if m.editor.isLastLine(m.editor.cursorY) && m.editor.numLines() >= 2 && m.editor.lineFromLast(0) == "" && m.editor.lineFromLast(1) == "" {
+			numBlankLinesRemoved := 0
+			for i := m.editor.numLines() - 1; i >= 0; i-- {
+				if m.editor.lines[i] == "" {
+					log.Printf("Removing blank line at index: %d", i)
+					m.editor.removeLine(i)
+					numBlankLinesRemoved++
+
+					if m.AllowBlankLines && numBlankLinesRemoved == 2 {
+						break
+					}
+				}
+			}
 
 			m.Finish()
 			return

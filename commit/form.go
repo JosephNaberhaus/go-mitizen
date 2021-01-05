@@ -6,7 +6,7 @@ import (
 	"github.com/eiannone/keyboard"
 )
 
-func showForm(config *Config) (commit *info, err error) {
+func showForm() (commit *info, err error) {
 	commit = new(info)
 
 	err = keyboard.Open()
@@ -64,6 +64,7 @@ func showForm(config *Config) (commit *info, err error) {
 	// Body
 	bodyPrompt := prompt.Multiline{
 		Description: "Provide a longer description of the change: (press enter to skip)",
+		AllowBlankLines: config.AllowBlankLinesInBody,
 	}
 	err = bodyPrompt.Show()
 	if err != nil {
