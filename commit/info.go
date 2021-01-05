@@ -1,14 +1,17 @@
 package commit
 
-import "strings"
+import (
+	"github.com/JosephNaberhaus/go-mitizen/util"
+	"strings"
+)
 
 type info struct {
 	CommitType string
 	Scope string
 	subject string
 	body []string
-	breakingChanges string
-	issueReference string
+	breakingChanges []string
+	issueReference []string
 }
 
 func (i *info) toCommitMessage() string {
@@ -30,15 +33,24 @@ func (i *info) toCommitMessage() string {
 		messageBuilder.WriteString(strings.Join(i.body, "\n"))
 	}
 
-	if i.breakingChanges != "" {
+	if i.breakingChanges != nil {
 		messageBuilder.WriteString("\n\n")
 		messageBuilder.WriteString("BREAKING CHANGE: ")
-		messageBuilder.WriteString(i.breakingChanges)
+
+		// Because of the prefix, we must re-wrap the lines so that the max line length isn't exceeded
+		reWrappedLines := make([]string, 0)
+
+		joined := strings.Join(i.breakingChanges, "")
+		firstLineLength := util.Min(config.MaxLineLength - len("BREAKING CHANGE: "), len(joined))
+		reWrappedLines = append(reWrappedLines, joined[:firstLineLength])
+		reWrappedLines = append(reWrappedLines, util.SplitStringIntoChunks(joined[firstLineLength:], config.MaxLineLength)...)
+
+		messageBuilder.WriteString(strings.Join(reWrappedLines, "\n"))
 	}
 
-	if i.issueReference != "" {
+	if i.issueReference != nil {
 		messageBuilder.WriteString("\n\n")
-		messageBuilder.WriteString(i.issueReference)
+		messageBuilder.WriteString(strings.Join(i.issueReference, "\n"))
 	}
 
 	return messageBuilder.String()

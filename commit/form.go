@@ -28,17 +28,17 @@ func showForm() (commit *info, err error) {
 
 	// Scope
 	scopePrompt := prompt.SingleLine{
-		Name:          "scope",
-		Description:   "What is the scope of this change (e.g. component or file name)",
-		MaxCharacters: config.MaxHeaderLength - len(commit.CommitType) - 5,
-		Required:      false,
+		Name:           "scope",
+		Description:    "What is the scope of this change (e.g. component or file name)",
+		MaxLength:      config.MaxHeaderLength - len(commit.CommitType) - 5,
+		Required:       false,
 		ForceLowercase: config.ForceScopeLowerCase,
 	}
 	err = scopePrompt.Show()
 	if err != nil {
 		return nil, fmt.Errorf("error while showing scope prompt: %w", err)
 	}
-	commit.Scope = scopePrompt.Response()
+	commit.Scope = scopePrompt.ResponseSingle()
 
 	// Subject
 	var maxSubjectLength int
@@ -49,22 +49,23 @@ func showForm() (commit *info, err error) {
 	}
 
 	subjectPrompt := prompt.SingleLine{
-		Name:          "subject",
-		Description:   "Write a short, imperative tense description of the change",
-		MaxCharacters: maxSubjectLength,
-		Required:      true,
+		Name:           "subject",
+		Description:    "Write a short, imperative tense description of the change",
+		MaxLength:      maxSubjectLength,
+		Required:       true,
 		ForceLowercase: config.ForceSubjectLowerCase,
 	}
 	err = subjectPrompt.Show()
 	if err != nil {
 		return nil, fmt.Errorf("error while showing description prompt: %w", err)
 	}
-	commit.subject = subjectPrompt.Response()
+	commit.subject = subjectPrompt.ResponseSingle()
 
 	// Body
 	bodyPrompt := prompt.Multiline{
-		Description: "Provide a longer description of the change: (press enter to skip)",
+		Description:     "Provide a longer description of the change: (press enter to skip)",
 		AllowBlankLines: config.AllowBlankLinesInBody,
+		WrapLineLength:  config.MaxLineLength,
 	}
 	err = bodyPrompt.Show()
 	if err != nil {
@@ -84,6 +85,7 @@ func showForm() (commit *info, err error) {
 	if areBreakingChangesPrompt.Response() {
 		breakingChangesPrompt := prompt.SingleLine{
 			Description: "Describe the breaking changes",
+			WrapLineLength: config.MaxLineLength,
 		}
 		err = breakingChangesPrompt.Show()
 		if err != nil {
@@ -103,6 +105,7 @@ func showForm() (commit *info, err error) {
 	if areIssueReferencesPrompt.Response() {
 		issueReferencesPrompt := prompt.SingleLine{
 			Description:   "Add issue references (e.g. \"fix #123\", \"re #123\".)",
+			WrapLineLength: config.MaxLineLength,
 		}
 		err = issueReferencesPrompt.Show()
 		if err != nil {

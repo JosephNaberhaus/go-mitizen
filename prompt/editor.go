@@ -122,14 +122,32 @@ func (e *editor) write(input rune) {
 	}
 }
 
+// Hard-wraps all lines to be no longer than the given max length
+func (e *editor) wrapLines(maxLength int) {
+	wrappedLines := make([]string, 0)
+	for _, line := range e.lines {
+		split := util.SplitStringIntoChunks(line, maxLength)
+
+		if len(split) == 0 {
+			wrappedLines = append(wrappedLines, "")
+		} else {
+			wrappedLines = append(wrappedLines, split...)
+		}
+	}
+
+	e.lines = wrappedLines
+}
+
+// Removes a line shifting the cursor up if necessary
 func (e *editor) removeLine(y int) string {
 	removedLine := e.lines[y]
 	e.lines = append(e.lines[:y], e.lines[y+1:]...)
 
-	if y < e.cursorY || e.cursorY == e.numLines() {
+	if y < e.cursorY {
+		e.cursorY--
+	} else if e.cursorY == e.numLines() {
 		e.cursorY--
 		e.cursorX = e.curLineLength()
-		log.Printf("shifted cursor to %d %d", e.cursorX, e.cursorY)
 	}
 
 	return removedLine

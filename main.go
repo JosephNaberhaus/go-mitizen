@@ -13,6 +13,7 @@ import (
 
 var installFlag = flag.Bool("install", false, "install this executable as a git subcommand runnable with \"git cz\"")
 var logFlag = flag.Bool("log", false, "write program logs to \"logs.txt\" in the working directory")
+var dryRun = flag.Bool("dry", false, "print the commit message without performing the commit")
 
 func Usage() {
 	fmt.Fprintf(flag.CommandLine.Output(), "\nUsage: %s [-log] [-install]\n", os.Args[0])
@@ -51,7 +52,7 @@ func main()  {
 		return
 	}
 
-	err := commit.Commit()
+	err := commit.Commit(*dryRun)
 	if err != nil {
 		println("No commit made")
 		log.Fatal(err)

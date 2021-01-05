@@ -16,7 +16,7 @@ type Config struct {
 var config = Config{
 	ForceSubjectLowerCase: true,
 	ForceScopeLowerCase: true,
-	AllowBlankLinesInBody: false,
+	AllowBlankLinesInBody: true,
 	MaxHeaderLength: 100,
 	MaxLineLength: 100,
 	Types: []*prompt.SelectionOption{

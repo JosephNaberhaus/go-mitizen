@@ -1,6 +1,7 @@
 package prompt
 
 import (
+	"errors"
 	"fmt"
 	"log"
 )
@@ -11,8 +12,9 @@ type SingleLine struct {
 	Name string
 	Description string
 
-	MaxCharacters int
-	Required bool
+	MaxLength      int // Maximum number of characters that can be submitted
+	WrapLineLength int // Number of columns to wrap the response by after it is submitted (doesn't effect input). Values <= represent no max length
+	Required       bool // Whether a blank input is allowed
 	ForceLowercase bool
 
 	invalidMessage string // An invalid input message to display below the input text
@@ -44,8 +46,8 @@ func (s *SingleLine) handleInput(input Key) {
 	if input == ControlEnter {
 		if s.Required && s.editor.empty() {
 			s.invalidMessage = s.Name + " is required"
-		} else if s.MaxCharacters > 0 && s.editor.numCharacters() > s.MaxCharacters {
-			s.invalidMessage = fmt.Sprintf("%s length must be less than or equal to %d characters. Current length is %d characters.", s.Name, s.MaxCharacters, s.editor.numCharacters())
+		} else if s.MaxLength > 0 && s.editor.numCharacters() > s.MaxLength {
+			s.invalidMessage = fmt.Sprintf("%s length must be less than or equal to %d characters. Current length is %d characters.", s.Name, s.MaxLength, s.editor.numCharacters())
 		} else {
 			s.Finish()
 			return
@@ -63,8 +65,8 @@ func (s *SingleLine) render() {
 
 	s.output.writeColor("? ", ColorGreen)
 	s.output.write(s.Description)
-	if s.MaxCharacters > 0 {
-		s.output.write(fmt.Sprintf(" (max %d characters)", s.MaxCharacters))
+	if s.MaxLength > 0 {
+		s.output.write(fmt.Sprintf(" (max %d characters)", s.MaxLength))
 	}
 	s.output.write(": ")
 
@@ -74,11 +76,11 @@ func (s *SingleLine) render() {
 		s.output.write("(press enter to skip) ")
 	}
 
-	if s.MaxCharacters > 0 {
+	if s.MaxLength > 0 {
 		s.output.nextLine()
 
 		numCharacters := s.editor.numCharacters()
-		if numCharacters > s.MaxCharacters {
+		if numCharacters > s.MaxLength {
 			textColor = ColorRed
 			s.output.writeColor(fmt.Sprintf(" (%d) ", numCharacters), ColorRed)
 		} else {
@@ -93,7 +95,13 @@ func (s *SingleLine) render() {
 		textColor = ColorCyan
 	}
 
-	s.output.writeColorLn(s.editor.curLine(), textColor)
+	if s.editor.numLines() > 1 {
+		s.output.nextLine()
+	}
+
+	for _, line := range s.editor.lines {
+		s.output.writeColorLn(line, textColor)
+	}
 
 	if len(s.invalidMessage) != 0 {
 		s.output.writeColor(">> ", ColorRed)
@@ -107,10 +115,28 @@ func (s *SingleLine) render() {
 func (s *SingleLine) Finish() {
 	s.base.Finish()
 
+	if s.WrapLineLength > 0 {
+		s.editor.wrapLines(s.WrapLineLength)
+	}
+
 	s.render()
 	s.output.commit()
 }
 
-func (s *SingleLine) Response() string {
+// Returns the response asserting that it will occupy only one line. If the response has been wrapped due to its length
+// exceeding the WrapLineLength property then this method will panic
+func (s *SingleLine) ResponseSingle() string {
+	if s.editor.numLines() > 1 {
+		panic(errors.New("multiple lines in editor when only one line was asserted"))
+	}
+
 	return s.editor.curLine()
+}
+
+func (s *SingleLine) Response() []string {
+	if s.editor.empty() {
+		return nil
+	}
+
+	return s.editor.lines
 }

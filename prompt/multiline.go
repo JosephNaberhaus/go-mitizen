@@ -7,8 +7,10 @@ import (
 type Multiline struct {
 	base
 
-	Description string
-	AllowBlankLines bool // Whether to remove all blank lines from the input when submitted
+	Description     string
+
+	AllowBlankLines bool // Whether to remove all blank lines from the input after it is submitted (doesn't effect input)
+	WrapLineLength  int  // Number of columns to wrap the response by after it is submitted (doesn't effect input). Values <= represent no max length
 
 	editor *editor
 }
@@ -39,7 +41,6 @@ func (m *Multiline) handleInput(input Key) {
 			numBlankLinesRemoved := 0
 			for i := m.editor.numLines() - 1; i >= 0; i-- {
 				if m.editor.lines[i] == "" {
-					log.Printf("Removing blank line at index: %d", i)
 					m.editor.removeLine(i)
 					numBlankLinesRemoved++
 
@@ -95,6 +96,10 @@ func (m *Multiline) render() {
 
 func (m *Multiline) Finish() {
 	m.base.Finish()
+
+	if m.WrapLineLength > 0 {
+		m.editor.wrapLines(m.WrapLineLength)
+	}
 
 	m.render()
 	m.output.commit()
