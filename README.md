@@ -28,4 +28,44 @@ git cz [--install] [--log]
 `--log`: Write log messages to the *logs.txt* file in the working directory for debugging.
 
 ## Configuration
-**TODO**
+A configuration file will be looked for at `config.gz.json` in the root of the current repository. If this is not found then a global config will be looked for at `~config.gz.json`.
+
+The format of the config is simply:
+```(json)
+{
+    "<property>": "<new value>",
+    ...
+}
+```
+
+#### Properties
+##### *ForceSubjectLowerCase*
+- **Type**: boolean
+- **Default**: `true`
+- **Description**: Convert all characters in the subject to lowercase.
+
+##### *ForceScopeLowerCase*
+- **Type**: boolean
+- **Default**: `true`
+- **Description**: Convert all characters in the scope to lowercase.
+
+##### *AllowBlankLinesInBody*
+- **Type**: boolean
+- **Default:**: true
+- **Description**: Whether to remove any blank lines in the body of the commit (might be necessary for compatibility with other commitizen tools).
+
+##### *MaxHeaderLength*
+- **Type**: int
+- **Default**: 100
+- **Description**: The number of characters allowed in the header of the commit.
+
+##### *MaxLineLength*
+- **Type**: int
+- **Default**: 100
+- **Description**: The number of characters to allow in each line of the body and footer (length of header is set with *MaxHeaderLength*). Lines exceeding this length will be wrapped.
+
+##### *Types*
+- **Type**: Array of `{"name" : <string>, "description": <string"` objects
+- **Default**: [See code](https://github.com/JosephNaberhaus/go-mitizen/blob/master/commit/config.go)
+- **Description**: The types of commits that can be made.
+
