@@ -53,17 +53,17 @@ The format of the config is simply:
 
 ##### *AllowBlankLinesInBody*
 - **Type**: boolean
-- **Default**: true
+- **Default**: `true`
 - **Description**: Whether to remove any blank lines in the body of the commit (might be necessary for compatibility with other commitizen tools).
 
 ##### *MaxHeaderLength*
 - **Type**: int
-- **Default**: 100
+- **Default**: `100`
 - **Description**: The number of characters allowed in the header of the commit. The utility will not allow the user to submit a header greater than this length.
 
 ##### *MaxLineLength*
 - **Type**: int
-- **Default**: 100
+- **Default**: `100`
 - **Description**: The number of characters to allow in each line of the body and footer (length of header is set with *MaxHeaderLength*). Lines exceeding this length will be wrapped.
 
 ##### *Types*
