@@ -27,6 +27,8 @@ git cz [--install] [--log]
 
 `--log`: Write log messages to the *logs.txt* file in the working directory for debugging.
 
+`--dry`: Print the commit message without performing a commit (useful for debugging)
+
 ## Configuration
 A configuration file will be looked for at `config.gz.json` in the root of the current repository. If this is not found then a global config will be looked for at `~config.gz.json`.
 
