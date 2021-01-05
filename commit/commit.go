@@ -5,6 +5,11 @@ import (
 )
 
 func Commit(dryRun bool) error {
+	err := overrideConfig()
+	if err != nil {
+		return err
+	}
+
 	commit, err := showForm()
 	if err != nil {
 		return err

@@ -139,8 +139,6 @@ func (s *Select) computeOptionLines() {
 			s.optionLines = append(s.optionLines, longestNamePadding + line)
 		}
 	}
-
-	log.Printf("%v", s.optionLines)
 }
 
 func (s *Select) longestName() int {

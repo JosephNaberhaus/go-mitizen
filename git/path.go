@@ -16,3 +16,14 @@ func GetExecPath() (path string, err error) {
 
 	return strings.ReplaceAll(string(output), "\n", ""), nil
 }
+
+func GetRepositoryRoot() (path string, err error) {
+	cmd := exec.Command("git",  "rev-parse", "--show-toplevel")
+
+	output, err := cmd.Output()
+	if err != nil {
+		return "", fmt.Errorf("error getting repository root: %w", err)
+	}
+
+	return strings.ReplaceAll(string(output), "\n", ""), nil
+}

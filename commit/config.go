@@ -1,8 +1,17 @@
 package commit
 
 import (
+	"encoding/json"
+	"fmt"
+	"github.com/JosephNaberhaus/go-mitizen/git"
 	"github.com/JosephNaberhaus/go-mitizen/prompt"
+	"github.com/JosephNaberhaus/go-mitizen/util"
+	"io/ioutil"
+	"log"
+	"path/filepath"
 )
+
+const configName = "config.gz.json"
 
 type Config struct {
 	ForceSubjectLowerCase   bool
@@ -69,4 +78,51 @@ var config = Config{
 			Description: "Reverts a previous commit",
 		},
 	},
+}
+
+func overrideConfig() error {
+	repositoryRoot, err := git.GetRepositoryRoot()
+	if err != nil {
+		return err
+	}
+
+	existed, err := overrideIfExists(filepath.Join(repositoryRoot, configName))
+	if err != nil {
+		return err
+	}
+
+	if !existed {
+		_, err := overrideIfExists(filepath.Join("~", configName))
+		return err
+	}
+
+	return nil
+}
+
+func overrideIfExists(configPath string) (existed bool, err error) {
+	log.Printf("Looking for config at: %s", configPath)
+
+	exists, err := util.FileExists(configPath)
+	if err != nil {
+		return false, fmt.Errorf("error checking if config file exists: %w", err)
+	}
+
+	if exists {
+		log.Println("Config found")
+		content, err := ioutil.ReadFile(configPath)
+		if err != nil {
+			return false, fmt.Errorf("error reading config at %s: %w", configPath, err)
+		}
+
+		err = json.Unmarshal(content, &config)
+		if err != nil {
+			return false, fmt.Errorf("error parsing config: %w", err)
+		}
+
+		return true, nil
+	} else {
+		log.Println("Config not found")
+	}
+
+	return false, nil
 }
