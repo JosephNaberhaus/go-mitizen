@@ -30,7 +30,7 @@ git cz [--install] [--log]
 `--dry`: Print the commit message without performing a commit (useful for debugging)
 
 ## Configuration
-A configuration file will be looked for at `config.gz.json` in the root of the current repository. If this is not found then a global config will be looked for at `~config.gz.json`.
+A configuration file will be looked for at `config.gz.json` in the root of the current repository. If this is not found then a global config will be looked for at `~/config.gz.json`.
 
 The format of the config is simply:
 ```(json)
