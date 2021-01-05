@@ -53,7 +53,7 @@ The format of the config is simply:
 
 ##### *AllowBlankLinesInBody*
 - **Type**: boolean
-- **Default:**: true
+- **Default**: true
 - **Description**: Whether to remove any blank lines in the body of the commit (might be necessary for compatibility with other commitizen tools).
 
 ##### *MaxHeaderLength*
