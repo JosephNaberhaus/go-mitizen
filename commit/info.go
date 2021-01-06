@@ -43,7 +43,7 @@ func (i *info) toCommitMessage() string {
 		joined := strings.Join(i.breakingChanges, "")
 		firstLineLength := util.Min(config.MaxLineLength-len("BREAKING CHANGE: "), len(joined))
 		reWrappedLines = append(reWrappedLines, joined[:firstLineLength])
-		reWrappedLines = append(reWrappedLines, util.SplitStringIntoChunks(joined[firstLineLength:], config.MaxLineLength)...)
+		reWrappedLines = append(reWrappedLines, util.WrapString(joined[firstLineLength:], config.MaxLineLength)...)
 
 		messageBuilder.WriteString(strings.Join(reWrappedLines, "\n"))
 	}

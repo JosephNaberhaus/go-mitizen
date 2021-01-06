@@ -137,7 +137,7 @@ func (e *editor) write(input rune) {
 func (e *editor) wrapLines(maxLength int) {
 	wrappedLines := make([]string, 0)
 	for _, line := range e.lines {
-		split := util.SplitStringIntoChunks(line, maxLength)
+		split := util.WrapString(line, maxLength)
 
 		if len(split) == 0 {
 			wrappedLines = append(wrappedLines, "")
