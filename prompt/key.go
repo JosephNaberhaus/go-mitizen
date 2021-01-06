@@ -25,6 +25,10 @@ const (
 	ControlEnter
 	ControlBackspace
 	ControlSpace
+	ControlHome
+	ControlEnd
+	ControlNextWord
+	ControlPrevWord
 )
 
 func ToKey(rune rune, key keyboard.Key) Key {
@@ -41,6 +45,8 @@ func ToKey(rune rune, key keyboard.Key) Key {
 	case keyboard.KeyBackspace: fallthrough
 	case keyboard.KeyBackspace2: return ControlBackspace
 	case keyboard.KeySpace: return ControlSpace
+	case keyboard.KeyHome: return ControlHome
+	case keyboard.KeyEnd: return ControlEnd
 	default: return Noop
 	}
 }

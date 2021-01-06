@@ -72,6 +72,14 @@ func (e *editor) down() {
 	}
 }
 
+func (e *editor) home() {
+	e.cursorX = 0
+}
+
+func (e *editor) end() {
+	e.cursorX = e.curLineLength()
+}
+
 func (e *editor) newline() {
 	leftOfCursor := e.curLine()[:e.cursorX]
 	rightOfCursor := e.curLine()[e.cursorX:]
@@ -86,6 +94,7 @@ func (e *editor) newline() {
 	}
 
 	e.cursorX = 0
+	e.preferredX = 0
 	e.cursorY++
 }
 
@@ -120,6 +129,8 @@ func (e *editor) write(input rune) {
 	for i := 0; i < len(string(input)); i++ {
 		e.right()
 	}
+
+	e.preferredX = e.cursorX
 }
 
 // Hard-wraps all lines to be no longer than the given max length
@@ -193,7 +204,7 @@ func (e *editor) lineFromLast(n int) string {
 
 // Compute what the cursor position will be if all lines are soft wrapped to fit within a certain number of columns
 func (e *editor) getRealCursorPosition(offsetX, offsetY int) (cursorX int, cursorY int) {
-	realX := (e.cursorX + offsetX) % e.NumCols
+	realX := e.cursorX + offsetX
 	realY := offsetY
 
 	for y := 0; y < e.cursorY; y++ {
@@ -204,7 +215,8 @@ func (e *editor) getRealCursorPosition(offsetX, offsetY int) (cursorX int, curso
 		realY++
 	}
 
-	realY += e.cursorX / e.NumCols
+	realY += realX / e.NumCols
+	realX %= e.NumCols
 
 	log.Printf("Computed real cursor postion of %d %d from virtual position of %d %d with offset %d %d", realX, realY, e.cursorX, e.cursorY, offsetX, offsetY)
 	return realX, realY
@@ -225,6 +237,8 @@ func (e *editor) handleInput(input Key) {
 		case ControlEnter: e.newline()
 		case ControlBackspace: e.backspace()
 		case ControlSpace: e.write(' ')
+		case ControlHome: e.home()
+		case ControlEnd: e.end()
 		}
 	}
 }
