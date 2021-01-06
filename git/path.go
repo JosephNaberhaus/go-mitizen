@@ -27,3 +27,10 @@ func GetRepositoryRoot() (path string, err error) {
 
 	return strings.ReplaceAll(string(output), "\n", ""), nil
 }
+
+func IsInGitRepository() bool {
+	cmd := exec.Command("git", "rev-parse", "--is-inside-work-tree")
+
+	_, err := cmd.Output()
+	return err == nil
+}
