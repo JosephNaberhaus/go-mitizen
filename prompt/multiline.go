@@ -7,7 +7,7 @@ import (
 type Multiline struct {
 	base
 
-	Description     string
+	Description string
 
 	AllowBlankLines bool // Whether to remove all blank lines from the input after it is submitted (doesn't effect input)
 	WrapLineLength  int  // Number of columns to wrap the response by after it is submitted (doesn't effect input). Values <= represent no max length
@@ -83,7 +83,7 @@ func (m *Multiline) render() {
 	}
 
 	for i, line := range m.editor.lines {
-		if i + 1 == len(m.editor.lines) {
+		if i+1 == len(m.editor.lines) {
 			m.output.writeColor(line, textColor)
 		} else {
 			m.output.writeColorLn(line, textColor)

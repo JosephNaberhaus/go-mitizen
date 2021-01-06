@@ -37,17 +37,28 @@ func ToKey(rune rune, key keyboard.Key) Key {
 	}
 
 	switch key {
-	case keyboard.KeyArrowLeft: return ControlLeft
-	case keyboard.KeyArrowRight: return ControlRight
-	case keyboard.KeyArrowUp: return ControlUp
-	case keyboard.KeyArrowDown: return ControlDown
-	case keyboard.KeyEnter: return ControlEnter
-	case keyboard.KeyBackspace: fallthrough
-	case keyboard.KeyBackspace2: return ControlBackspace
-	case keyboard.KeySpace: return ControlSpace
-	case keyboard.KeyHome: return ControlHome
-	case keyboard.KeyEnd: return ControlEnd
-	default: return Noop
+	case keyboard.KeyArrowLeft:
+		return ControlLeft
+	case keyboard.KeyArrowRight:
+		return ControlRight
+	case keyboard.KeyArrowUp:
+		return ControlUp
+	case keyboard.KeyArrowDown:
+		return ControlDown
+	case keyboard.KeyEnter:
+		return ControlEnter
+	case keyboard.KeyBackspace:
+		fallthrough
+	case keyboard.KeyBackspace2:
+		return ControlBackspace
+	case keyboard.KeySpace:
+		return ControlSpace
+	case keyboard.KeyHome:
+		return ControlHome
+	case keyboard.KeyEnd:
+		return ControlEnd
+	default:
+		return Noop
 	}
 }
 

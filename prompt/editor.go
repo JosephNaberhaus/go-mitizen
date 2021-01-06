@@ -42,7 +42,7 @@ func (e *editor) right() {
 	e.cursorX++
 
 	if e.cursorX > e.curLineLength() {
-		if e.cursorY + 1 < e.numLines() {
+		if e.cursorY+1 < e.numLines() {
 			e.cursorY++
 			e.cursorX = 0
 		} else {
@@ -59,12 +59,12 @@ func (e *editor) up() {
 	} else if e.cursorY != 0 {
 		e.cursorY--
 
-		e.cursorX = e.NumCols* (e.curLineLength() / e.NumCols) + util.Min(e.curLineLength(), e.preferredX)
+		e.cursorX = e.NumCols*(e.curLineLength()/e.NumCols) + util.Min(e.curLineLength(), e.preferredX)
 	}
 }
 
 func (e *editor) down() {
-	if e.curLineLength() - e.cursorX >= e.NumCols {
+	if e.curLineLength()-e.cursorX >= e.NumCols {
 		e.cursorX += e.NumCols
 	} else if !e.isLastLine(e.cursorY) {
 		e.cursorY++
@@ -168,7 +168,7 @@ func (e *editor) removeLine(y int) string {
 }
 
 func (e *editor) isLastLine(y int) bool {
-	return y + 1 == e.numLines()
+	return y+1 == e.numLines()
 }
 
 func (e *editor) numLines() int {
@@ -202,7 +202,7 @@ func (e *editor) empty() bool {
 }
 
 func (e *editor) lineFromLast(n int) string {
-	return e.lines[e.numLines() - 1 - n]
+	return e.lines[e.numLines()-1-n]
 }
 
 // Compute what the cursor position will be if all lines are soft wrapped to fit within a certain number of columns
@@ -229,15 +229,24 @@ func (e *editor) handleInput(input Key) {
 		}
 	case ControlKey:
 		switch v {
-		case ControlLeft: e.left()
-		case ControlRight: e.right()
-		case ControlUp: e.up()
-		case ControlDown: e.down()
-		case ControlEnter: e.newline()
-		case ControlBackspace: e.backspace()
-		case ControlSpace: e.write(' ')
-		case ControlHome: e.home()
-		case ControlEnd: e.end()
+		case ControlLeft:
+			e.left()
+		case ControlRight:
+			e.right()
+		case ControlUp:
+			e.up()
+		case ControlDown:
+			e.down()
+		case ControlEnter:
+			e.newline()
+		case ControlBackspace:
+			e.backspace()
+		case ControlSpace:
+			e.write(' ')
+		case ControlHome:
+			e.home()
+		case ControlEnd:
+			e.end()
 		}
 	}
 }

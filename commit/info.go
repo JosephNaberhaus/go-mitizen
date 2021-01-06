@@ -6,12 +6,12 @@ import (
 )
 
 type info struct {
-	CommitType string
-	Scope string
-	subject string
-	body []string
+	CommitType      string
+	Scope           string
+	subject         string
+	body            []string
 	breakingChanges []string
-	issueReference []string
+	issueReference  []string
 }
 
 func (i *info) toCommitMessage() string {
@@ -41,7 +41,7 @@ func (i *info) toCommitMessage() string {
 		reWrappedLines := make([]string, 0)
 
 		joined := strings.Join(i.breakingChanges, "")
-		firstLineLength := util.Min(config.MaxLineLength - len("BREAKING CHANGE: "), len(joined))
+		firstLineLength := util.Min(config.MaxLineLength-len("BREAKING CHANGE: "), len(joined))
 		reWrappedLines = append(reWrappedLines, joined[:firstLineLength])
 		reWrappedLines = append(reWrappedLines, util.SplitStringIntoChunks(joined[firstLineLength:], config.MaxLineLength)...)
 

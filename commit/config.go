@@ -14,20 +14,20 @@ import (
 const configName = "config.gz.json"
 
 type Config struct {
-	ForceSubjectLowerCase   bool
-	ForceScopeLowerCase     bool
-	AllowBlankLinesInBody   bool
-	MaxHeaderLength         int
-	MaxLineLength           int
-	Types                   []*prompt.SelectionOption
+	ForceSubjectLowerCase bool
+	ForceScopeLowerCase   bool
+	AllowBlankLinesInBody bool
+	MaxHeaderLength       int
+	MaxLineLength         int
+	Types                 []*prompt.SelectionOption
 }
 
 var config = Config{
 	ForceSubjectLowerCase: true,
-	ForceScopeLowerCase: true,
+	ForceScopeLowerCase:   true,
 	AllowBlankLinesInBody: true,
-	MaxHeaderLength: 100,
-	MaxLineLength: 100,
+	MaxHeaderLength:       100,
+	MaxLineLength:         100,
 	Types: []*prompt.SelectionOption{
 		{
 			Name:        "feat",

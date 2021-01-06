@@ -20,7 +20,7 @@ func InstallAsSubcommand(subcommandName string) error {
 		return fmt.Errorf("error reading executable to install: %w", err)
 	}
 
-	installPath := filepath.Join(gitExecPath, "git-" +subcommandName)
+	installPath := filepath.Join(gitExecPath, "git-"+subcommandName)
 	err = ioutil.WriteFile(installPath, execContent, 0x755)
 	if err != nil {
 		return fmt.Errorf("error writing executable subcommand: %w", err)

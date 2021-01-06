@@ -1,7 +1,5 @@
 package prompt
 
-
-
 type YesNo struct {
 	base
 

@@ -9,11 +9,11 @@ import (
 type SingleLine struct {
 	base
 
-	Name string
+	Name        string
 	Description string
 
-	MaxLength      int // Maximum number of characters that can be submitted
-	WrapLineLength int // Number of columns to wrap the response by after it is submitted (doesn't effect input). Values <= represent no max length
+	MaxLength      int  // Maximum number of characters that can be submitted
+	WrapLineLength int  // Number of columns to wrap the response by after it is submitted (doesn't effect input). Values <= represent no max length
 	Required       bool // Whether a blank input is allowed
 	ForceLowercase bool
 

@@ -10,7 +10,7 @@ import (
 const maxLines = 7
 
 type SelectionOption struct {
-	Name string
+	Name        string
 	Description string
 }
 
@@ -18,9 +18,9 @@ type Select struct {
 	base
 
 	Description string
-	Options []*SelectionOption
+	Options     []*SelectionOption
 
-	optionLines []string
+	optionLines       []string
 	optionIndexToLine []int
 
 	cursor int
@@ -71,8 +71,8 @@ func (s *Select) render() {
 	}
 	s.output.nextLine()
 
-	startLine := s.optionIndexToLine[s.cursor] - (util.Min(maxLines - 1, len(s.optionLines)) / 2)
-	endLine := startLine + util.Min(maxLines - 1, len(s.optionLines))
+	startLine := s.optionIndexToLine[s.cursor] - (util.Min(maxLines-1, len(s.optionLines)) / 2)
+	endLine := startLine + util.Min(maxLines-1, len(s.optionLines))
 	for line := startLine; line <= endLine; line++ {
 		wrappedLine := s.wrapLine(line)
 
@@ -107,7 +107,7 @@ func (s *Select) Finish() {
 }
 
 func (s *Select) wrapLine(line int) int {
-	return (line % len(s.optionLines) + len(s.optionLines)) % len(s.optionLines)
+	return (line%len(s.optionLines) + len(s.optionLines)) % len(s.optionLines)
 }
 
 func (s *Select) selected() *SelectionOption {
@@ -115,28 +115,28 @@ func (s *Select) selected() *SelectionOption {
 }
 
 func (s *Select) lineIsSelected(line int) bool {
-	if s.cursor + 1 == len(s.Options) {
+	if s.cursor+1 == len(s.Options) {
 		return s.optionIndexToLine[s.cursor] <= line
 	}
 
-	return s.optionIndexToLine[s.cursor] <= line && line < s.optionIndexToLine[s.cursor + 1]
+	return s.optionIndexToLine[s.cursor] <= line && line < s.optionIndexToLine[s.cursor+1]
 }
 
 func (s *Select) computeOptionLines() {
 	s.optionLines = make([]string, 0)
 
 	longestName := s.longestName()
-	longestNamePadding := strings.Repeat(" ", longestName + 1)
+	longestNamePadding := strings.Repeat(" ", longestName+1)
 	for _, option := range s.Options {
-		optionString := fmt.Sprintf("%s:%s %s", option.Name, strings.Repeat(" ", longestName - len(option.Name)), option.Description)
+		optionString := fmt.Sprintf("%s:%s %s", option.Name, strings.Repeat(" ", longestName-len(option.Name)), option.Description)
 
 		s.optionIndexToLine = append(s.optionIndexToLine, len(s.optionLines))
-		s.optionLines = append(s.optionLines, optionString[:util.Min(len(optionString), s.output.numCols - 2)])
+		s.optionLines = append(s.optionLines, optionString[:util.Min(len(optionString), s.output.numCols-2)])
 
 		for i := s.output.numCols - 2; i < len(optionString); i += s.output.numCols - 2 - longestName {
-			line := optionString[i:util.Min(len(optionString), i + s.output.numCols)]
+			line := optionString[i:util.Min(len(optionString), i+s.output.numCols)]
 
-			s.optionLines = append(s.optionLines, longestNamePadding + line)
+			s.optionLines = append(s.optionLines, longestNamePadding+line)
 		}
 	}
 }

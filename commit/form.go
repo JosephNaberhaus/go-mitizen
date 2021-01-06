@@ -84,7 +84,7 @@ func showForm() (commit *info, err error) {
 
 	if areBreakingChangesPrompt.Response() {
 		breakingChangesPrompt := prompt.SingleLine{
-			Description: "Describe the breaking changes",
+			Description:    "Describe the breaking changes",
 			WrapLineLength: config.MaxLineLength,
 		}
 		err = breakingChangesPrompt.Show()
@@ -104,7 +104,7 @@ func showForm() (commit *info, err error) {
 
 	if areIssueReferencesPrompt.Response() {
 		issueReferencesPrompt := prompt.SingleLine{
-			Description:   "Add issue references (e.g. \"fix #123\", \"re #123\".)",
+			Description:    "Add issue references (e.g. \"fix #123\", \"re #123\".)",
 			WrapLineLength: config.MaxLineLength,
 		}
 		err = issueReferencesPrompt.Show()

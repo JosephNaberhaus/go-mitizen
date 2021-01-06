@@ -74,21 +74,21 @@ func (o *output) writeColorLn(content string, color Color) {
 // wraps internally stored position of the cursor when it goes beyond the column border so that it matches the real one
 func (o *output) wrapCursor() {
 	o.cursorY += (o.cursorX - 1) / o.numCols
-	o.cursorX = (o.cursorX - 1) % o.numCols + 1
+	o.cursorX = (o.cursorX-1)%o.numCols + 1
 
-	o.numOutputLines = util.Max(o.numOutputLines, o.cursorY + 1)
+	o.numOutputLines = util.Max(o.numOutputLines, o.cursorY+1)
 }
 
 func (o *output) moveCursor(dx, dy int) {
-	if o.cursorX + dx < 0 {
+	if o.cursorX+dx < 0 {
 		dx = -o.cursorX
-	} else if o.cursorX + dx > o.numCols {
+	} else if o.cursorX+dx > o.numCols {
 		dx = o.numCols - o.cursorX
 	}
 
-	if o.cursorY + dy < 0 {
+	if o.cursorY+dy < 0 {
 		dy = -o.cursorY
-	} else if o.cursorY + dy > o.numOutputLines {
+	} else if o.cursorY+dy > o.numOutputLines {
 		dy = o.numOutputLines - o.cursorY
 	}
 
@@ -96,7 +96,7 @@ func (o *output) moveCursor(dx, dy int) {
 		return
 	}
 
-	log.Printf("Shifting cursor: %d %d", dx ,dy)
+	log.Printf("Shifting cursor: %d %d", dx, dy)
 
 	o.cursorX += dx
 	o.cursorY += dy
@@ -110,7 +110,7 @@ func (o *output) setCursor(x, y int) {
 		return
 	}
 
-	o.moveCursor(x - o.cursorX, y - o.cursorY)
+	o.moveCursor(x-o.cursorX, y-o.cursorY)
 }
 
 func (o *output) hideCursor() {
@@ -125,7 +125,7 @@ func (o *output) showCursor() {
 
 func (o *output) nextLine() {
 	log.Printf("Moving to next line with cursor at %d %d and %d output lines", o.cursorX, o.cursorY, o.numOutputLines)
-	if o.cursorY + 1 == o.numOutputLines {
+	if o.cursorY+1 == o.numOutputLines {
 		log.Println("Inserting a newline")
 		o.printBuffer.WriteString("\n")
 		o.numOutputLines++
@@ -137,7 +137,7 @@ func (o *output) nextLine() {
 		o.cursorX++
 		o.moveCursor(-1, 0)
 	} else {
-		o.setCursor(0, o.cursorY + 1)
+		o.setCursor(0, o.cursorY+1)
 	}
 }
 

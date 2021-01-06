@@ -20,12 +20,12 @@ func Usage() {
 	flag.PrintDefaults()
 }
 
-func main()  {
+func main() {
 	flag.Usage = Usage
 	flag.Parse()
 
 	if *logFlag {
-		f, err := os.OpenFile("logs.txt", os.O_RDWR | os.O_CREATE | os.O_APPEND, 0666)
+		f, err := os.OpenFile("logs.txt", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 		if err != nil {
 			log.Fatalf("error opening file: %v", err)
 		}

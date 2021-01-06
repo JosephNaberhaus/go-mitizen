@@ -18,7 +18,7 @@ func GetExecPath() (path string, err error) {
 }
 
 func GetRepositoryRoot() (path string, err error) {
-	cmd := exec.Command("git",  "rev-parse", "--show-toplevel")
+	cmd := exec.Command("git", "rev-parse", "--show-toplevel")
 
 	output, err := cmd.Output()
 	if err != nil {
