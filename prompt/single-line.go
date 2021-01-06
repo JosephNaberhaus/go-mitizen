@@ -72,7 +72,7 @@ func (s *SingleLine) render() {
 
 	textColor := ColorWhite
 
-	if !s.Required {
+	if !s.Required && s.editor.empty() {
 		s.output.write("(press enter to skip) ")
 	}
 

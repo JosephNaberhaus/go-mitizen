@@ -27,8 +27,6 @@ const (
 	ControlSpace
 	ControlHome
 	ControlEnd
-	ControlNextWord
-	ControlPrevWord
 )
 
 func ToKey(rune rune, key keyboard.Key) Key {
