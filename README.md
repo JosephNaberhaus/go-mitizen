@@ -20,7 +20,7 @@ go build && ./go-mitizen --install
 
 ## Usage
 ```html
-git cz [--install] [--log]
+git cz [--install] [--log] [--dry]
 ```
 #### Flags
 `--install`: Install the application to be runnable via `git cz`.
