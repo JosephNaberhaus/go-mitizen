@@ -147,6 +147,9 @@ func (e *editor) wrapLines(maxLength int) {
 	}
 
 	e.lines = wrappedLines
+
+	e.cursorY = e.numLines() - 1
+	e.cursorX = e.curLineLength()
 }
 
 // Removes a line shifting the cursor up if necessary
@@ -211,14 +214,10 @@ func (e *editor) getRealCursorPosition(offsetX, offsetY int) (cursorX int, curso
 		realY += (e.lineLength(y) / e.NumCols) + 1
 	}
 
-	if ((offsetX + e.lineLength(0)) / e.NumCols) > (e.lineLength(0) / e.NumCols) {
-		realY++
-	}
-
 	realY += realX / e.NumCols
 	realX %= e.NumCols
 
-	log.Printf("Computed real cursor postion of %d %d from virtual position of %d %d with offset %d %d", realX, realY, e.cursorX, e.cursorY, offsetX, offsetY)
+	log.Printf("Computed real cursor postion of %d %d from virtual position of %d %d with offset %d %d with %d columns", realX, realY, e.cursorX, e.cursorY, offsetX, offsetY, e.NumCols)
 	return realX, realY
 }
 
