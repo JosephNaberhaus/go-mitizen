@@ -23,6 +23,7 @@ type Select struct {
 	optionLines       []string
 	optionIndexToLine []int
 
+	offset int
 	cursor int
 }
 
@@ -30,6 +31,7 @@ func (s *Select) Show() error {
 	s.base.Show()
 
 	s.computeOptionLines()
+	s.offset = (maxLines+1)/2 - 1
 
 	s.output.hideCursor()
 	s.render()
@@ -47,6 +49,10 @@ func (s *Select) handleInput(input Key) {
 		s.cursor++
 		if s.cursor == len(s.Options) {
 			s.cursor = 0
+		}
+
+		if s.offset > 0 {
+			s.offset--
 		}
 	} else if input == ControlEnter {
 		s.Finish()
@@ -71,7 +77,7 @@ func (s *Select) render() {
 	}
 	s.output.nextLine()
 
-	startLine := s.optionIndexToLine[s.cursor] - (util.Min(maxLines-1, len(s.optionLines)) / 2)
+	startLine := s.optionIndexToLine[s.cursor] - (util.Min(maxLines-1, len(s.optionLines)) / 2) + s.offset
 	endLine := startLine + util.Min(maxLines-1, len(s.optionLines))
 	for line := startLine; line <= endLine; line++ {
 		wrappedLine := s.wrapLine(line)
