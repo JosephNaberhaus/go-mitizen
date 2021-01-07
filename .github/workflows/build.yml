@@ -15,8 +15,8 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
       - name: Find Go version
-          run: awk '$1=="go"{print $2}' builder/go.mod | xargs -I {} echo "::set-output name=version::{}"
-          id: go_mod
+        run: awk '$1=="go"{print $2}' builder/go.mod | xargs -I {} echo "::set-output name=version::{}"
+        id: go_mod
       - name: Build versions
         uses: wangyoucao577/go-release-action@v1.12
         with:
