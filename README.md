@@ -12,6 +12,8 @@ A Commitizen-like Git commit utility for written in Go. Used for standardizing c
 - 👎 Isn't compatible with the full commitizen toolset
 
 ## Installation
+#### From Binary
+Download the appropriate binary for you platform from the [releases page](https://github.com/JosephNaberhaus/go-mitizen/releases)
 #### From Source
 Download repository via Git or as a Zip
 ```
