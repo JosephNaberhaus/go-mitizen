@@ -1,5 +1,5 @@
 # Go-Mitizen
-A Commitizen-like Git commit utility for written in Go. Used for standardizing commit messages.
+A Commitizen-like Git commit utility written in Go. Used for standardizing commit messages.
 
 ![The commit form](meta/commit.gif)
 
