@@ -14,6 +14,9 @@ import (
 var installFlag = flag.Bool("install", false, "install this executable as a git subcommand runnable with \"git cz\"")
 var logFlag = flag.Bool("log", false, "write program logs to \"logs.txt\" in the working directory")
 var dryRun = flag.Bool("dry", false, "print the commit message without performing the commit")
+var versionFlag = flag.Bool("version", false, "print the version of this application")
+
+var version string
 
 func Usage() {
 	fmt.Fprintf(flag.CommandLine.Output(), "\nUsage: %s [-log] [-install]\n", os.Args[0])
@@ -36,6 +39,11 @@ func main() {
 		log.SetOutput(ioutil.Discard)
 	}
 
+	if *versionFlag {
+		println(version)
+		os.Exit(0)
+	}
+
 	if *installFlag {
 		err := git.InstallAsSubcommand("cz")
 		if err != nil {
@@ -49,7 +57,7 @@ func main() {
 		}
 
 		println("Installed subcommand. Run with \"git cz\"")
-		return
+		os.Exit(0)
 	}
 
 	err := commit.Commit(*dryRun)

@@ -13,19 +13,27 @@ A Commitizen-like Git commit utility for written in Go. Used for standardizing c
 
 ## Installation
 #### From Binary
-Download the appropriate binary for you platform from the [releases page](https://github.com/JosephNaberhaus/go-mitizen/releases)
+Download and extract the appropriate binary for you platform from the [releases page](https://github.com/JosephNaberhaus/go-mitizen/releases). Then run:
+
+```
+./go-mitizen --install
+```
+
 #### From Source
-Download repository via Git or as a Zip
+Download repository via Git or as a Zip. Then run
+
 ```
 go build && ./go-mitizen --install
 ```
 
 ## Usage
 ```html
-git cz [--install] [--log] [--dry]
+git cz [--install] [--version] [--log] [--dry]
 ```
 #### Flags
 `--install`: Install the application to be runnable via `git cz`.
+
+`--version`: Print the application's version
 
 `--log`: Write log messages to the *logs.txt* file in the working directory for debugging.
 
