@@ -26,5 +26,5 @@ jobs:
           goos: ${{ matrix.goos }}
           goarch: ${{ matrix.goarch }}
           goversion: ${{ steps.go_mod.outputs.version }}
-          ldflags: -X "main.version=${{ env.APP_VERSION }}"
+          ldflags: -X "main.version=${{ env.RELEASE_VERSION }}"
           extra_files: LICENSE

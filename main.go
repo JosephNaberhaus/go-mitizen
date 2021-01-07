@@ -16,7 +16,7 @@ var logFlag = flag.Bool("log", false, "write program logs to \"logs.txt\" in the
 var dryRun = flag.Bool("dry", false, "print the commit message without performing the commit")
 var versionFlag = flag.Bool("version", false, "print the version of this application")
 
-var version string
+var version = "not set"
 
 func Usage() {
 	fmt.Fprintf(flag.CommandLine.Output(), "\nUsage: %s [-log] [-install]\n", os.Args[0])
