@@ -51,7 +51,7 @@ The format of the config is simply:
 }
 ```
 
-Any property not specified with resort to its default.
+Any property not specified will resort to its default.
 
 #### Properties
 ##### *ForceSubjectLowerCase*
