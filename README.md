@@ -13,7 +13,7 @@ A Commitizen-like Git commit utility for written in Go. Used for standardizing c
 
 ## Installation
 #### From Binary
-Download and extract the appropriate binary for you platform from the [releases page](https://github.com/JosephNaberhaus/go-mitizen/releases). Then run:
+Download and extract the appropriate binary for your platform from the [releases page](https://github.com/JosephNaberhaus/go-mitizen/releases). Then run:
 
 ```
 ./go-mitizen --install
@@ -23,7 +23,8 @@ Download and extract the appropriate binary for you platform from the [releases 
 Download repository via Git or as a Zip. Then run
 
 ```
-go build && ./go-mitizen --install
+go build
+./go-mitizen --install
 ```
 
 ## Usage
