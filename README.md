@@ -20,7 +20,7 @@ Download and extract the appropriate binary for your platform from the [releases
 ```
 
 #### From Source
-Download repository via Git or as a Zip. Then run
+Download repository via Git or as a Zip. Then run:
 
 ```
 go build
