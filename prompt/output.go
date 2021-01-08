@@ -1,6 +1,7 @@
 package prompt
 
 import (
+	"fmt"
 	"github.com/JosephNaberhaus/go-mitizen/util"
 	escapes "github.com/snugfox/ansi-escapes"
 	"log"
@@ -152,7 +153,7 @@ func (o *output) clear() {
 
 func (o *output) flush() {
 	log.Println("Flushing output buffer")
-	print(o.printBuffer.String())
+	fmt.Print(o.printBuffer.String())
 	o.printBuffer.Reset()
 }
 

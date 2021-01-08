@@ -2,6 +2,7 @@ package commit
 
 import (
 	"errors"
+	"fmt"
 	"github.com/JosephNaberhaus/go-mitizen/git"
 )
 
@@ -27,11 +28,11 @@ func Commit(dryRun bool) error {
 	}
 
 	if dryRun {
-		println("Commit Message:")
-		println(commit.toCommitMessage())
+		fmt.Println("Commit Message:")
+		fmt.Println(commit.toCommitMessage())
 		return nil
 	}
 
-	println()
+	fmt.Println()
 	return git.Commit(commit.toCommitMessage())
 }

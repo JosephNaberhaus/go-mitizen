@@ -40,7 +40,7 @@ func main() {
 	}
 
 	if *versionFlag {
-		println(version)
+		fmt.Println(version)
 		os.Exit(0)
 	}
 
@@ -56,13 +56,13 @@ func main() {
 			log.Fatal(err)
 		}
 
-		println("Installed subcommand. Run with \"git cz\"")
+		fmt.Println("Installed subcommand. Run with \"git cz\"")
 		os.Exit(0)
 	}
 
 	err := commit.Commit(*dryRun)
 	if err != nil {
-		println("No commit made")
+		fmt.Println("No commit made")
 		log.Fatal(err)
 	}
 }
