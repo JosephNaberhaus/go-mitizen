@@ -6,6 +6,8 @@ github.com/JosephNaberhaus/prompt v0.0.0-20220309040911-d92c28b56d92 h1:I6y6C+EX
 github.com/JosephNaberhaus/prompt v0.0.0-20220309040911-d92c28b56d92/go.mod h1:SYLRflK1Qs7k44aMJ2ebl+vZoR2rj/hmR9UIyIueymM=
 github.com/JosephNaberhaus/prompt v0.0.0-20220309042841-0f1d72b4a622 h1:VJ9xr6acJ9Uun+yWkV5aoDA12CfzwsDEwOVWM8mWWuU=
 github.com/JosephNaberhaus/prompt v0.0.0-20220309042841-0f1d72b4a622/go.mod h1:SYLRflK1Qs7k44aMJ2ebl+vZoR2rj/hmR9UIyIueymM=
+github.com/JosephNaberhaus/prompt v0.0.0-20220309050234-a561319abe13 h1:B6gEvbjGZqdAyO+T/X1LyW5+b5ORU42yzAZMVM/BKVE=
+github.com/JosephNaberhaus/prompt v0.0.0-20220309050234-a561319abe13/go.mod h1:SYLRflK1Qs7k44aMJ2ebl+vZoR2rj/hmR9UIyIueymM=
 github.com/davecgh/go-spew v1.1.0 h1:ZDRjVQ15GmhC3fiQ8ni8+OwkZQO4DARzQgrnXU1Liz8=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/eiannone/keyboard v0.0.0-20200508000154-caf4b762e807 h1:jdjd5e68T4R/j4PWxfZqcKY8KtT9oo8IPNVuV4bSXDQ=
