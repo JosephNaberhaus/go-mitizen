@@ -15,7 +15,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
       - name: Find Go version
-        run: awk '$1=="go"{print $2}' builder/go.mod | xargs -I {} echo "::set-output name=version::{}"
+        run: awk '$1=="go"{print $2}' go.mod | xargs -I {} echo "::set-output name=version::{}"
         id: go_mod
       - name: Find release tag
         run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV

@@ -1,6 +1,6 @@
 module github.com/JosephNaberhaus/go-mitizen
 
-go 1.14
+go 1.17
 
 require (
 	github.com/JosephNaberhaus/prompt v0.0.0-20220309050234-a561319abe13
