@@ -2,8 +2,9 @@ package commit
 
 import (
 	"fmt"
-	"github.com/JosephNaberhaus/go-mitizen/prompt"
+	"github.com/JosephNaberhaus/go-mitizen/form"
 	"github.com/eiannone/keyboard"
+	"log"
 )
 
 func showForm() (commit *info, err error) {
@@ -15,104 +16,30 @@ func showForm() (commit *info, err error) {
 	}
 	defer keyboard.Close()
 
-	// Type
-	commitTypePrompt := prompt.Select{
-		Description: "Select the type of change that you're committing",
-		Options:     config.Types,
-	}
-	err = commitTypePrompt.Show()
-	if err != nil {
-		return nil, fmt.Errorf("error while showing commit type prompt: %w", err)
-	}
-	commit.CommitType = commitTypePrompt.Response().Name
+	f := form.NewForm()
+	for !f.IsFinished() {
+		curPrompt := f.CurPrompt()
 
-	// Scope
-	scopePrompt := prompt.SingleLine{
-		Name:           "scope",
-		Description:    "What is the scope of this change (e.g. component or file name)",
-		MaxLength:      config.MaxHeaderLength - len(commit.CommitType) - 5,
-		Required:       false,
-		ForceLowercase: config.ForceScopeLowerCase,
-	}
-	err = scopePrompt.Show()
-	if err != nil {
-		return nil, fmt.Errorf("error while showing scope prompt: %w", err)
-	}
-	commit.Scope = scopePrompt.ResponseSingle()
-
-	// Subject
-	var maxSubjectLength int
-	if commit.Scope != "" {
-		maxSubjectLength = config.MaxHeaderLength - len(commit.CommitType) - 4 - len(commit.Scope)
-	} else {
-		maxSubjectLength = config.MaxHeaderLength - len(commit.CommitType) - 2
-	}
-
-	subjectPrompt := prompt.SingleLine{
-		Name:           "subject",
-		Description:    "Write a short, imperative tense description of the change",
-		MaxLength:      maxSubjectLength,
-		Required:       true,
-		ForceLowercase: config.ForceSubjectLowerCase,
-	}
-	err = subjectPrompt.Show()
-	if err != nil {
-		return nil, fmt.Errorf("error while showing description prompt: %w", err)
-	}
-	commit.subject = subjectPrompt.ResponseSingle()
-
-	// Body
-	bodyPrompt := prompt.Multiline{
-		Description:     "Provide a longer description of the change: (press enter to skip)",
-		AllowBlankLines: config.AllowBlankLinesInBody,
-		WrapLineLength:  config.MaxLineLength,
-	}
-	err = bodyPrompt.Show()
-	if err != nil {
-		return nil, fmt.Errorf("error while showing body prompt: %w", err)
-	}
-	commit.body = bodyPrompt.Response()
-
-	// Breaking changes
-	areBreakingChangesPrompt := prompt.YesNo{
-		Description: "Are there any breaking changes?",
-	}
-	err = areBreakingChangesPrompt.Show()
-	if err != nil {
-		return nil, fmt.Errorf("error while showing breaking changes prompt: %w", err)
-	}
-
-	if areBreakingChangesPrompt.Response() {
-		breakingChangesPrompt := prompt.SingleLine{
-			Description:    "Describe the breaking changes",
-			WrapLineLength: config.MaxLineLength,
-		}
-		err = breakingChangesPrompt.Show()
+		result, err := curPrompt.Show(f)
 		if err != nil {
-			return nil, fmt.Errorf("error while showing breaking changes description prompt: %w", err)
+			return nil, err
 		}
-		commit.breakingChanges = breakingChangesPrompt.Response()
+
+		log.Printf("Result is %v", result)
+
+		if result == form.ResultSubmit {
+			f.Next()
+		} else {
+			f.Previous()
+		}
 	}
 
-	areIssueReferencesPrompt := prompt.YesNo{
-		Description: "Does this change affect any open issues?",
-	}
-	err = areIssueReferencesPrompt.Show()
-	if err != nil {
-		return nil, fmt.Errorf("error while showing are issue references prompt: %w", err)
-	}
-
-	if areIssueReferencesPrompt.Response() {
-		issueReferencesPrompt := prompt.SingleLine{
-			Description:    "Add issue references (e.g. \"fix #123\", \"re #123\".)",
-			WrapLineLength: config.MaxLineLength,
-		}
-		err = issueReferencesPrompt.Show()
-		if err != nil {
-			return nil, fmt.Errorf("error while showing issue reference prompt: %w", err)
-		}
-		commit.issueReference = issueReferencesPrompt.Response()
-	}
-
-	return commit, nil
+	return &info{
+		CommitType:      f.CommitType.StringValue(),
+		Scope:           f.Scope.StringValue(),
+		subject:         f.Subject.StringValue(),
+		body:            f.Body.StringValue(),
+		breakingChanges: f.BreakingChanges.StringValue(),
+		issueReference:  f.IssueReferences.StringValue(),
+	}, nil
 }

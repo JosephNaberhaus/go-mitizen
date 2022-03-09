@@ -1,7 +1,10 @@
 package commit
 
 import (
+	"github.com/JosephNaberhaus/go-mitizen/config"
 	"github.com/JosephNaberhaus/go-mitizen/util"
+	"log"
+	"regexp"
 	"strings"
 )
 
@@ -9,9 +12,9 @@ type info struct {
 	CommitType      string
 	Scope           string
 	subject         string
-	body            []string
-	breakingChanges []string
-	issueReference  []string
+	body            string
+	breakingChanges string
+	issueReference  string
 }
 
 func (i *info) toCommitMessage() string {
@@ -28,29 +31,35 @@ func (i *info) toCommitMessage() string {
 	messageBuilder.WriteString(": ")
 	messageBuilder.WriteString(i.subject)
 
-	if i.body != nil {
-		messageBuilder.WriteString("\n\n")
-		messageBuilder.WriteString(strings.Join(i.body, "\n"))
+	if i.body != "" {
+		messageBuilder.WriteString("\n")
+
+		body := i.body
+		if !config.AllowBlankLinesInBody {
+			log.Printf("doesn't allow it")
+			body = regexp.MustCompile("\\n\\n+").ReplaceAllString(body, "\n")
+		}
+
+		messageBuilder.WriteString(body)
 	}
 
-	if i.breakingChanges != nil {
+	if i.breakingChanges != "" {
 		messageBuilder.WriteString("\n\n")
 		messageBuilder.WriteString("BREAKING CHANGE: ")
 
 		// Because of the prefix, we must re-wrap the lines so that the max line length isn't exceeded
 		reWrappedLines := make([]string, 0)
 
-		joined := strings.Join(i.breakingChanges, "")
-		firstLineLength := util.Min(config.MaxLineLength-len("BREAKING CHANGE: "), len(joined))
-		reWrappedLines = append(reWrappedLines, joined[:firstLineLength])
-		reWrappedLines = append(reWrappedLines, util.WrapString(joined[firstLineLength:], config.MaxLineLength)...)
+		firstLineLength := util.Min(config.MaxLineLength-len("BREAKING CHANGE: "), len(i.breakingChanges))
+		reWrappedLines = append(reWrappedLines, i.breakingChanges[:firstLineLength])
+		reWrappedLines = append(reWrappedLines, util.WrapString(i.breakingChanges[firstLineLength:], config.MaxLineLength)...)
 
 		messageBuilder.WriteString(strings.Join(reWrappedLines, "\n"))
 	}
 
-	if i.issueReference != nil {
+	if i.issueReference != "" {
 		messageBuilder.WriteString("\n\n")
-		messageBuilder.WriteString(strings.Join(i.issueReference, "\n"))
+		messageBuilder.WriteString(i.issueReference)
 	}
 
 	return messageBuilder.String()

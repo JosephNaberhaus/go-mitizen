@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"github.com/JosephNaberhaus/go-mitizen/commit"
+	"github.com/JosephNaberhaus/go-mitizen/config"
 	"github.com/JosephNaberhaus/go-mitizen/git"
 	"io/ioutil"
 	"log"
@@ -60,7 +61,12 @@ func main() {
 		os.Exit(0)
 	}
 
-	err := commit.Commit(*dryRun)
+	err := config.OverrideConfig()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = commit.Commit(*dryRun)
 	if err != nil {
 		fmt.Println("No commit made")
 		log.Fatal(err)

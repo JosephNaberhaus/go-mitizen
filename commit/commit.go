@@ -17,11 +17,6 @@ func Commit(dryRun bool) error {
 		return errors.New("no staged files")
 	}
 
-	err := overrideConfig()
-	if err != nil {
-		return err
-	}
-
 	commit, err := showForm()
 	if err != nil {
 		return err
