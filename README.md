@@ -41,7 +41,7 @@ git cz [--install] [--version] [--log] [--dry]
 `--dry`: Print the commit message without performing a commit (useful for debugging)
 
 ## Configuration
-A configuration file will be looked for at `config.gz.json` in the root of the current repository. If this is not found then a global config will be looked for at `~/config.gz.json`.
+A configuration file will be looked for at `config.gz.json` in the root of the current repository. If this is not found then a global config will be looked for at `~/config.gz.json`. If both files exist, **only** the first one found will be used.
 
 The format of the config is simply:
 ```(json)
@@ -81,6 +81,6 @@ Any property not specified will resort to its default.
 
 ##### *Types*
 - **Type**: Array of `{"name" : <string>, "description": <string>}` objects
-- **Default**: [See code](https://github.com/JosephNaberhaus/go-mitizen/blob/master/commit/config.go)
+- **Default**: [See the code](https://github.com/JosephNaberhaus/go-mitizen/blob/master/config/config.go)
 - **Description**: The types of commits that can be made.
 
