@@ -1,11 +1,5 @@
 github.com/JosephNaberhaus/go-text-editor v0.0.0-20211126045903-266e1c706813 h1:IRcI7Qes7lxSR9PEl8dJw6oRS4FR9XgPE1MzdcutTPI=
 github.com/JosephNaberhaus/go-text-editor v0.0.0-20211126045903-266e1c706813/go.mod h1:BF1UmZlyezjdkPTRg8vrLrrxk23qC0/oCZxsN1QIYQY=
-github.com/JosephNaberhaus/prompt v0.0.0-20211128194512-44ad0ddcb582 h1:x2NT8t13c/py7IoCHrOt3OOIM68OGVj2R1C5W/LrKnQ=
-github.com/JosephNaberhaus/prompt v0.0.0-20211128194512-44ad0ddcb582/go.mod h1:SYLRflK1Qs7k44aMJ2ebl+vZoR2rj/hmR9UIyIueymM=
-github.com/JosephNaberhaus/prompt v0.0.0-20220309040911-d92c28b56d92 h1:I6y6C+EXn4VcWrFS/7aisyAK+V1wXg7eu3GzL5IkbOs=
-github.com/JosephNaberhaus/prompt v0.0.0-20220309040911-d92c28b56d92/go.mod h1:SYLRflK1Qs7k44aMJ2ebl+vZoR2rj/hmR9UIyIueymM=
-github.com/JosephNaberhaus/prompt v0.0.0-20220309042841-0f1d72b4a622 h1:VJ9xr6acJ9Uun+yWkV5aoDA12CfzwsDEwOVWM8mWWuU=
-github.com/JosephNaberhaus/prompt v0.0.0-20220309042841-0f1d72b4a622/go.mod h1:SYLRflK1Qs7k44aMJ2ebl+vZoR2rj/hmR9UIyIueymM=
 github.com/JosephNaberhaus/prompt v0.0.0-20220309050234-a561319abe13 h1:B6gEvbjGZqdAyO+T/X1LyW5+b5ORU42yzAZMVM/BKVE=
 github.com/JosephNaberhaus/prompt v0.0.0-20220309050234-a561319abe13/go.mod h1:SYLRflK1Qs7k44aMJ2ebl+vZoR2rj/hmR9UIyIueymM=
 github.com/davecgh/go-spew v1.1.0 h1:ZDRjVQ15GmhC3fiQ8ni8+OwkZQO4DARzQgrnXU1Liz8=
@@ -21,7 +15,6 @@ github.com/snugfox/ansi-escapes v0.2.1-0.20201222033053-82a0109803f0/go.mod h1:7
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/testify v1.7.0 h1:nwc3DEeHmmLAfoZucVR881uASk0Mfjw8xYJ99tb5CcY=
 github.com/stretchr/testify v1.7.0/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
-golang.org/x/sys v0.0.0-20190124100055-b90733256f2e h1:3GIlrlVLfkoipSReOMNAgApI0ajnalyLa/EZHHca/XI=
 golang.org/x/sys v0.0.0-20190124100055-b90733256f2e/go.mod h1:STP8DvDyc/dI5b8T5hshtkjS+E42TnysNCUPdjciGhY=
 golang.org/x/sys v0.0.0-20211124211545-fe61309f8881 h1:TyHqChC80pFkXWraUUf6RuB5IqFdQieMLwwCJokV2pc=
 golang.org/x/sys v0.0.0-20211124211545-fe61309f8881/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
