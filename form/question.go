@@ -2,7 +2,6 @@ package form
 
 import (
 	"github.com/JosephNaberhaus/prompt"
-	"log"
 	"strconv"
 )
 
@@ -59,9 +58,7 @@ func (q *Question) StringValue() string {
 func goBackHandler(p prompt.Prompt, key prompt.Key) bool {
 	controlKey, isControlKey := key.(prompt.ControlKey)
 	if isControlKey && controlKey == prompt.ControlCtrlB {
-		log.Println("Going Back")
 		_ = p.Pause()
-		log.Println("Done pausing")
 		return true
 	}
 

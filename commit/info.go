@@ -3,7 +3,6 @@ package commit
 import (
 	"github.com/JosephNaberhaus/go-mitizen/config"
 	"github.com/JosephNaberhaus/go-mitizen/util"
-	"log"
 	"regexp"
 	"strings"
 )
@@ -36,7 +35,6 @@ func (i *info) toCommitMessage() string {
 
 		body := i.body
 		if !config.AllowBlankLinesInBody {
-			log.Printf("doesn't allow it")
 			body = regexp.MustCompile("\\n\\n+").ReplaceAllString(body, "\n")
 		}
 

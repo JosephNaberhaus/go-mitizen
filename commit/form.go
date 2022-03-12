@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/JosephNaberhaus/go-mitizen/form"
 	"github.com/eiannone/keyboard"
-	"log"
 )
 
 func showForm() (commit *info, err error) {
@@ -24,8 +23,6 @@ func showForm() (commit *info, err error) {
 		if err != nil {
 			return nil, err
 		}
-
-		log.Printf("Result is %v", result)
 
 		if result == form.ResultSubmit {
 			f.Next()
