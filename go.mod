@@ -3,7 +3,7 @@ module github.com/JosephNaberhaus/go-mitizen
 go 1.17
 
 require (
-	github.com/JosephNaberhaus/prompt v0.0.0-20220312225847-3bcead6f26aa
+	github.com/JosephNaberhaus/prompt v0.0.0-20220427040228-4c3379519294
 	github.com/eiannone/keyboard v0.0.0-20200508000154-caf4b762e807
 )
 
