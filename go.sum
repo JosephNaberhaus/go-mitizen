@@ -1,9 +1,5 @@
 github.com/JosephNaberhaus/go-text-editor v0.0.0-20211126045903-266e1c706813 h1:IRcI7Qes7lxSR9PEl8dJw6oRS4FR9XgPE1MzdcutTPI=
 github.com/JosephNaberhaus/go-text-editor v0.0.0-20211126045903-266e1c706813/go.mod h1:BF1UmZlyezjdkPTRg8vrLrrxk23qC0/oCZxsN1QIYQY=
-github.com/JosephNaberhaus/prompt v0.0.0-20220309050234-a561319abe13 h1:B6gEvbjGZqdAyO+T/X1LyW5+b5ORU42yzAZMVM/BKVE=
-github.com/JosephNaberhaus/prompt v0.0.0-20220309050234-a561319abe13/go.mod h1:SYLRflK1Qs7k44aMJ2ebl+vZoR2rj/hmR9UIyIueymM=
-github.com/JosephNaberhaus/prompt v0.0.0-20220312225847-3bcead6f26aa h1:Fkz3IsRWzRYlw7e6eVYkbQHVzxlRLhezlPHJshbBRYk=
-github.com/JosephNaberhaus/prompt v0.0.0-20220312225847-3bcead6f26aa/go.mod h1:SYLRflK1Qs7k44aMJ2ebl+vZoR2rj/hmR9UIyIueymM=
 github.com/JosephNaberhaus/prompt v0.0.0-20220427040228-4c3379519294 h1:7naxUlHAw6C9zSapEnp0Mqpxvtya5XSJAsT/WWPlXH8=
 github.com/JosephNaberhaus/prompt v0.0.0-20220427040228-4c3379519294/go.mod h1:SYLRflK1Qs7k44aMJ2ebl+vZoR2rj/hmR9UIyIueymM=
 github.com/davecgh/go-spew v1.1.0 h1:ZDRjVQ15GmhC3fiQ8ni8+OwkZQO4DARzQgrnXU1Liz8=
