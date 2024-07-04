@@ -1,5 +1,5 @@
-github.com/JosephNaberhaus/prompt v1.1.1 h1:CyK4+FAK6ODIy4coDxLR9yTUvYyH0Bj0t0WJfTrJjwQ=
-github.com/JosephNaberhaus/prompt v1.1.1/go.mod h1:1R8mmLTC97/e1grnDX1hkejIDiO2UiowqTPJQ+wH9rQ=
+github.com/JosephNaberhaus/prompt v1.1.2 h1:L9VtmLaMc9DWlwqFeD6Tw5pTKsVhqhUwBWrWYEhLQFc=
+github.com/JosephNaberhaus/prompt v1.1.2/go.mod h1:29oAnY7QfsC7XDMjMr806OHGLcQMhsdqGeYQ5Cse+/0=
 github.com/JosephNaberhaus/texteditor v1.0.0 h1:ZIEjQteO4GKsBXiXwK0upR2C+ujm3/hu31bWhvgpaUs=
 github.com/JosephNaberhaus/texteditor v1.0.0/go.mod h1:u8ZXGoc10C73L9LJX425Ht1q8uhJkCg8PO2guMQAsa4=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
@@ -8,8 +8,8 @@ github.com/eiannone/keyboard v0.0.0-20220611211555-0d226195f203 h1:XBBHcIb256gUJ
 github.com/eiannone/keyboard v0.0.0-20220611211555-0d226195f203/go.mod h1:E1jcSv8FaEny+OP/5k9UxZVw9YFWGj7eI4KR/iOBqCg=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
-github.com/rivo/uniseg v0.3.0 h1:eyC18g7xB83Dv/xlJXLgNkRidVoR7nqFZBJvqo/K188=
-github.com/rivo/uniseg v0.3.0/go.mod h1:FN3SvrM+Zdj16jyLfmOkMNblXMcoc8DfTHruCPUcx88=
+github.com/rivo/uniseg v0.4.7 h1:WUdvkW8uEhrYfLC4ZzdpI2ztxP1I582+49Oc5Mq64VQ=
+github.com/rivo/uniseg v0.4.7/go.mod h1:FN3SvrM+Zdj16jyLfmOkMNblXMcoc8DfTHruCPUcx88=
 github.com/snugfox/ansi-escapes v0.2.1-0.20201222033053-82a0109803f0 h1:eLJS0UFklqC3Bla1a6cECtVHHKq10kg4ohzh5ckeVd8=
 github.com/snugfox/ansi-escapes v0.2.1-0.20201222033053-82a0109803f0/go.mod h1:7GY2wPrDOaZyZ/OlSWalu7T+RKdkSrPfQHDr3xl8yGk=
 github.com/stretchr/testify v1.9.0 h1:HtqpIVDClZ4nwg75+f6Lvsy/wHu+3BoSGCbBAcpTsTg=
